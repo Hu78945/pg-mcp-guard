@@ -1,0 +1,51 @@
+{
+  "name": "pg-mcp-guard",
+  "version": "0.1.0",
+  "description": "Security-first MCP server that lets AI assistants explore and query PostgreSQL through a parser-based SQL guard, read-only transactions, column masking and an audit log.",
+  "type": "module",
+  "bin": {
+    "pg-mcp-guard": "dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "seed",
+    "policy.example.yaml"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run --silent=false",
+    "bench": "node scripts/bench.mjs",
+    "demo": "node dist/cli.js --demo",
+    "prepublishOnly": "npm run build && npm test"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "postgres",
+    "postgresql",
+    "sql",
+    "security",
+    "llm",
+    "ai"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@electric-sql/pglite": "^0.5.16",
+    "@modelcontextprotocol/sdk": "^1.32.2",
+    "libpg-query": "^18.2.2",
+    "pg": "^8.23.1",
+    "pgsql-deparser": "^18.4.3",
+    "yaml": "^2.9.1",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "@types/pg": "^8.23.1",
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.0"
+  }
+}
