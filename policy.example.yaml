@@ -1,0 +1,16 @@
+# pg-mcp-guard policy. Everything not listed here is denied.
+schemas: [public]          # unqualified table names resolve against these, in order
+maxRows: 200               # hard cap on rows returned per query
+statementTimeoutMs: 5000   # SET LOCAL statement_timeout for every query
+
+tables:                    # table allowlist ("schema.table"); omit the key to allow all tables in `schemas`
+  public.customers:
+    columns: [id, full_name, email, phone, city, created_at]   # column allowlist: password_hash is invisible
+    mask:
+      email: email         # customer17@example.com -> ***@example.com
+      phone: last4         # +1-555-1017            -> ***1017
+  public.products: {}
+  public.orders: {}
+  public.order_items: {}
+
+# deniedFunctions: ["^my_expensive_fn$"]   # extra regexes on top of the built-in denylist
